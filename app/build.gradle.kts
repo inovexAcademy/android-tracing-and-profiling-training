@@ -14,16 +14,7 @@ android {
         versionCode = 1
         versionName = "1.0"
 
-        // Already switched to the AndroidBenchmarkRunner runner for performance testing
-        //testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        testInstrumentationRunner = "androidx.benchmark.junit4.AndroidBenchmarkRunner"
-
-        // If you use a virtual device instead of a physical device, you must surpress some
-        // errors from the Benchmark tooling
-        // See
-        //  * https://stackoverflow.com/questions/74280538/testinstrumentationrunnerarguments-is-deprecated-and-replaced-by-property
-        //  * https://stackoverflow.com/questions/61593995/not-using-isolationactivity-via-androidbenchmarkrunner
-        //testInstrumentationRunnerArguments["androidx.benchmark.suppressErrors"] = "EMULATOR"
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
         vectorDrawables {
             useSupportLibrary = true
@@ -37,6 +28,13 @@ android {
 
     buildTypes {
         debug {
+	    isMinifyEnabled = false
+            isDebuggable = true
+        }
+        create("benchmark") {
+            initWith(buildTypes.getByName("release"))
+            signingConfig = signingConfigs.getByName("debug")
+            matchingFallbacks += listOf("release")
             isDebuggable = false
         }
         release {
@@ -79,6 +77,8 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.benchmark.junit4)
+    implementation(libs.androidx.benchmark.macro)
+    implementation(libs.androidx.benchmark.macro.junit4)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

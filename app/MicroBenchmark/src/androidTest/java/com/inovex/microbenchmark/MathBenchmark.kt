@@ -1,6 +1,10 @@
 // SPDX-FileCopyrightText: Copyright (c) 2025 inovex GmbH
+// SPDX-License-Identifier: MIT
+//
+// The code and idea is based on
+//     https://www.romainguy.dev/posts/2024/you-are-going-to-need-it/
 
-package com.inovex.training.performance
+package com.inovex.microbenchmark
 
 import androidx.benchmark.BlackHole
 import androidx.benchmark.ExperimentalBlackHoleApi
@@ -12,8 +16,6 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import kotlin.math.pow
 
-// This method is based on the upstream example
-// https://www.romainguy.dev/posts/2024/you-are-going-to-need-it/
 @RunWith(AndroidJUnit4::class)
 class MathBenchmark {
     @get:Rule
@@ -23,6 +25,17 @@ class MathBenchmark {
         it.toFloat() / 3f
     }
 
+    // NOTE: This is optimized away, so the benchmark is invalid!
+    @Test
+    fun pow2ButInvalidBenchmark() {
+        benchmarkRule.measureRepeated {
+            for (f in data) {
+                f.pow(2f)
+            }
+        }
+    }
+
+    // NOTE: Using accumulator and println() to avoid compiler optimizations
     @Test
     fun pow2WithAcc() {
         benchmarkRule.measureRepeated {
@@ -34,17 +47,8 @@ class MathBenchmark {
         }
     }
 
-    @Test
-    fun squareWithAcc() {
-        benchmarkRule.measureRepeated {
-            var result = 0f
-            for (f in data) {
-                result += f * f
-            }
-            println(result)
-        }
-    }
-
+    // NOTE: Using new API to accomplish the same
+    // Observe: This gives similar results as above
     @OptIn(ExperimentalBlackHoleApi::class)
     @Test
     fun pow2WithBlackHole() {
@@ -55,6 +59,9 @@ class MathBenchmark {
         }
     }
 
+    // NOTE: Try to optimize the code. Using "f * f" instead of pow()
+    // Observe: "f * f" is faster.
+    // Question: Why is "f * f" faster?
     @OptIn(ExperimentalBlackHoleApi::class)
     @Test
     fun squareWithBlackHole() {
@@ -64,4 +71,23 @@ class MathBenchmark {
             }
         }
     }
+
+    // Bonus Exercise: Benchmark the fibFast implementation
+    // Steps:
+    // 1) Copy fibFast() function into this class
+    // 2) Uncomment the next function
+    // 3) Experiment with different implementations, e.g.
+    //    - Int instead of Long
+    //    - different loop types
+    /*
+    @OptIn(ExperimentalBlackHoleApi::class)
+    @Test
+    fun fib() {
+        benchmarkRule.measureRepeated {
+            for (i in 0..1024) {
+                BlackHole.consume(fibFast(42))
+            }
+        }
+    }
+    */
 }

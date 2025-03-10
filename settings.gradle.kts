@@ -21,3 +21,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "Android Tracing and Profiling Training"
 include(":app")
+include(":app:MacroBenchmark")
+include(":app:MicroBenchmark")

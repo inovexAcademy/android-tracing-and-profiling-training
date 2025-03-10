@@ -1,27 +1,23 @@
 // SPDX-FileCopyrightText: Copyright (c) 2025 inovex GmbH
+// SPDX-License: MIT
 
 package com.inovex.training.performance
 
 import android.app.Activity
 import android.os.Bundle
-import android.os.Trace
 import android.util.Log
 import android.widget.TextView
 import java.util.Timer
 import java.util.TimerTask
 
-class MainActivity : Activity() {
+class CPULeakActivity : Activity() {
     companion object {
-        private val TAG = MainActivity::class.qualifiedName
-
-        init {
-            System.loadLibrary("native")
-        }
+        private val TAG = CPULeakActivity::class.simpleName
     }
 
     private lateinit var timer: Timer
-    private lateinit var textViewCounter: TextView
     private var counter = 0L
+    private lateinit var textViewCounter: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,33 +28,27 @@ class MainActivity : Activity() {
         timer = Timer()
         timer.schedule(object : TimerTask() {
             override fun run() {
-                runOnUiThread {
-                    updateCounter()
-                }
+                updateCounterBackground()
             }
         }, 0, 100)
 
-        Log.d(TAG, "from native " + getSomeNumberFromNative())
+        Log.d(TAG, "onCreate() finished")
     }
 
-    fun updateCounter() {
-        try {
-            Trace.beginSection("MainActivity-TimerTask")
-            textViewCounter.text = counter.toString()
+    fun updateCounterBackground() {
+        // NOTE: calculation is done on the timer thread, not on UI thread!
+        val acc = fibFast(4200)
+        counter += acc
 
-            counter += getAccFromNative()
-        } finally {
-            Trace.endSection()
+        runOnUiThread {
+            // Update
+            textViewCounter.text = "$counter"
         }
     }
 
     override fun onDestroy() {
         super.onDestroy()
         timer.cancel()
+        Log.d(TAG, "onDestroy() finished")
     }
-
-    private external fun getSomeNumberFromNative(): Int
-
-    private external fun getAccFromNative(): Int
-
 }
