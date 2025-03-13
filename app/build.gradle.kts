@@ -19,11 +19,6 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
-
-        ndk {
-            // Just build for the most important archs
-            abiFilters += listOf( "x86_64", "arm64-v8a")
-        }
     }
 
     buildTypes {
