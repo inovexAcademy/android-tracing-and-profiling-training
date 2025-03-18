@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Android Tracing and Profiling Example</string>
+    <string name="title_activity_compose">ComposeActivity</string>
+    <string name="loading">Loading</string>
+    <string name="search_term">Search term</string>
+    <string name="search">Search</string>
+    <string name="results">Results</string>
 </resources>
