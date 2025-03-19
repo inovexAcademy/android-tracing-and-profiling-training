@@ -7,6 +7,7 @@ import android.app.Activity
 import android.os.Bundle
 import android.util.Log
 import android.widget.TextView
+import androidx.compose.ui.util.trace
 import java.util.Timer
 import java.util.TimerTask
 
@@ -36,10 +37,12 @@ class CustomTraceEventsActivity : Activity() {
     }
 
     fun updateCounter() {
-        counter += getAccFromNative()
+        trace("updateCounter") {
+            counter += getAccFromNative()
 
-        runOnUiThread {
-            textViewCounter.text = "$counter"
+            runOnUiThread {
+                textViewCounter.text = "$counter"
+            }
         }
     }
 
