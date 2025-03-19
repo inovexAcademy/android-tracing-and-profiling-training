@@ -71,23 +71,4 @@ class MathBenchmark {
             }
         }
     }
-
-    // Bonus Exercise: Benchmark the fibFast implementation
-    // Steps:
-    // 1) Copy fibFast() function into this class
-    // 2) Uncomment the next function
-    // 3) Experiment with different implementations, e.g.
-    //    - Int instead of Long
-    //    - different loop types
-    /*
-    @OptIn(ExperimentalBlackHoleApi::class)
-    @Test
-    fun fib() {
-        benchmarkRule.measureRepeated {
-            for (i in 0..1024) {
-                BlackHole.consume(fibFast(42))
-            }
-        }
-    }
-    */
 }

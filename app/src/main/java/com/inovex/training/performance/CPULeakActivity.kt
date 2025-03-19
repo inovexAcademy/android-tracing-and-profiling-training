@@ -7,6 +7,8 @@ import android.app.Activity
 import android.os.Bundle
 import android.util.Log
 import android.widget.TextView
+import com.inovex.fib.fibFast
+import com.inovex.fib.fibStd
 import java.util.Timer
 import java.util.TimerTask
 
@@ -37,7 +39,7 @@ class CPULeakActivity : Activity() {
 
     fun updateCounterBackground() {
         // NOTE: calculation is done on the timer thread, not on UI thread!
-        val acc = fibFast(4200)
+        val acc = fibStd(21 + 13)
         counter += acc
 
         runOnUiThread {

@@ -86,7 +86,7 @@ Find you custom defined trace events in the trace view.
 Tip: search on the thread `Timer-0`
 
 Question: What is the green/grey line a top of the timer thread? And why is it
-green-gray-green?
+green-grey-green?
 
 
 ### CPU Profiling
@@ -98,7 +98,7 @@ See documentation
 See file
 
     app/src/main/java/com/inovex/training/performance/CPULeakActivity.kt
-    app/src/main/java/com/inovex/training/performance/fib.kt
+    fiblibrary/src/main/java/com/inovex/fib/fib.kt
 
 Use "Find CPU Hotspots / Callstack Sample". Start the application as
 "profileable".
@@ -204,8 +204,31 @@ Execute all benchmarks. You see an output like
 Go through the functions in the file, read the comments and look at the sample
 results.
 
-Bonus exercise: Start to benchmark the `fibFast()` implementation. See bottom
-of the file.
+New exercises: See file
+
+    app/MicroBenchmark/src/androidTest/java/com/inovex/microbenchmark/FibBenchmark.kt
+
+Run all three benchmarks:
+
+See the the timing informatoin and the `allocs`. Do `fibStd` and `fibFast`
+no memory allocations?
+
+Bonus question: So they cannot ran out of memory?
+
+
+Two Tasks:
+
+1) Compare `LinkedHashMap` against `LinkedHashMap` in `fibCaching()`
+2) Compare `Long` vs `Int` and `for` vs `while`.
+
+Next exercise: In the file
+
+    fiblibrary/src/main/java/com/inovex/fib/fib.kt
+
+press Ctrl-Shift-A and perform the action `Show Kotlin ByteCode`
+
+Next Bonus Exercise: Come up with a additional idea/code change to speed up
+`fibFast()`
 
 
 ### Macro Benchmark
@@ -228,13 +251,16 @@ Launch MarcoBenchmark for the first time. You should see an output like
     timeToInitialDisplayMs   min 1,537.8,   median 1,569.2,   max 1,600.5
     Traces: Iteration 0 1
 
+Is the testing stable? Min and max not too far apart?
+
 Now you can click on `0`, `1` or the ms numbers to debug the issue in the trace
 view. What takes the longest? Is it the `onCreate()` method?
 
 Add a trace event around the `fibStd()` call in the `onCreate()` function.
 How much does it contribute to the start up latency?
 
-Change the argument to `fibStd()` to make the startup longer and shorter.
+Change the argument to `fibStd()` to make the startup longer and shorter and
+check the trace again.
 
 
 ### JNI performance

@@ -88,6 +88,7 @@ dependencies {
     implementation(libs.androidx.benchmark.macro)
     implementation(libs.androidx.benchmark.macro.junit4)
     implementation(libs.collections.immutable)
+    implementation(project(":fiblibrary"))
     testImplementation(libs.junit)
     testImplementation(libs.kotlinx.coroutines.test)
     androidTestImplementation(libs.androidx.junit)

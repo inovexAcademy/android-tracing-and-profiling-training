@@ -47,7 +47,7 @@ Java_com_inovex_training_performance_JNIPerformanceActivity_addFastNative(UNUSED
 JNIEXPORT jint JNICALL
 Java_com_inovex_training_performance_JNIPerformanceActivity_addCriticalNative(UNUSED JNIEnv *env,
                                                                               jint a, jint b) {
-    // Testing function arguments use the following code
-    // ALOGV("addCriticalNative: a=%d b=%d", a, b);
+    // Testing function arguments using the following code
+    ALOGV("addCriticalNative: a=%d b=%d", a, b);
     return a + b;
 }

@@ -20,7 +20,7 @@ android {
         // See
         //  * https://stackoverflow.com/questions/74280538/testinstrumentationrunnerarguments-is-deprecated-and-replaced-by-property
         //  * https://stackoverflow.com/questions/61593995/not-using-isolationactivity-via-androidbenchmarkrunner
-        //testInstrumentationRunnerArguments["androidx.benchmark.suppressErrors"] = "EMULATOR"
+        testInstrumentationRunnerArguments["androidx.benchmark.suppressErrors"] = "EMULATOR"
     }
 
     buildTypes {

@@ -1,7 +1,4 @@
-// SPDX-FileCopyrightText: Copyright (c) 2025 inovex GmbH
-// SPDX-License-Identifier: MIT
-
-package com.inovex.training.performance
+package com.inovex.fib
 
 import org.junit.Test
 
@@ -18,8 +15,19 @@ class FibTest {
         assertEquals(5, fibStd(5))
         assertEquals(8, fibStd(6))
     }
-    @Test
 
+    @Test
+    fun testFibCaching() {
+        assertEquals(0, fibCaching(0))
+        assertEquals(1, fibCaching(1))
+        assertEquals(1, fibCaching(2))
+        assertEquals(2, fibCaching(3))
+        assertEquals(3, fibCaching(4))
+        assertEquals(5, fibCaching(5))
+        assertEquals(8, fibCaching(6))
+    }
+
+    @Test
     fun testFibFast() {
         assertEquals(0, fibFast(0))
         assertEquals(1, fibFast(1))

@@ -71,12 +71,79 @@ No solution here.
 
 ## Micro Benchmark
 
-No solution here.
+Result of comparing LinkedHashMap and HashMap in `fibCaching()`
+
+    HashMap
+    7,164,410   ns       77900 allocs    Trace    FibBenchmark.fibCaching
+    7,098,802   ns       77900 allocs    Trace    FibBenchmark.fibCaching
+
+    LinkedHashMap
+    8,896,345   ns       77900 allocs    Trace    FibBenchmark.fibCaching
+    8,854,206   ns       77900 allocs    Trace    FibBenchmark.fibCaching
+
+So there is a difference for the `fib(42)`.
+
+Bonus question: Is this difference dependend on the parameter `n`?
+
+Results with Long in `fibFast()`
+
+    81,118   ns           0 allocs    Trace    FibBenchmark.fibFast
+    81,111   ns           0 allocs    Trace    FibBenchmark.fibFast
+
+Using Int instead of Long in `fibFast()`
+
+    fun fibFast(n: Int): Int {
+        var a = 0
+        var b = 1
+        for (i in 0..<n) {
+            val aTmp = b
+            b += a
+            a = aTmp
+        }
+        return a
+    }
+
+    // results
+    81,115   ns           0 allocs    Trace    FibBenchmark.fibFast
+    81,107   ns           0 allocs    Trace    FibBenchmark.fibFast
+
+No performance gain. Mostly because the architecture is 64-bit.
+
+Trying a while instead of a for-loop
+
+    fun fibFast( n: Long): Long {
+        var a = 0L
+        var b = 1L
+        var n2 = n
+        while (n2 > 0) {
+            val aTmp = b
+            b += a
+            a = aTmp
+            n2 -= 1
+        }
+        return a
+    }
+
+    // results
+    81,111   ns           0 allocs    Trace    FibBenchmark.fibFast
+    81,119   ns           0 allocs    Trace    FibBenchmark.fibFast
+
+Also no performance gain!
+
+Comparing the DEX code shows that there are difference in the instructions and the length of the
+code. There is one additional instruction.
+
 
 
 ## Macro Benchmark
 
 Question: "How much does fibStd() add to the start up latency"
+
+Example code
+
+        val fib = trace("fibStd") {
+            fibStd(23 + 10)
+        }
 
 Answer: No, much. On my device it's only adding 83ms to the 1.5 seconds startup
 time.
@@ -86,28 +153,20 @@ time.
 
 A example tracing implementation for the different `add*` native functions is
 
-NOTE: The code does not use `trace("...") { ... }` yet. It should be refactored.
+    import androidx.compose.ui.util.trace
+    [...]
 
     fun updateCounter() {
         var value = 0
 
-        try {
-            Trace.beginSection("add")
+        trace("add") {
             value += add(21, 21)
-        } finally {
-            Trace.endSection()
         }
-        try {
-            Trace.beginSection("addFastNative")
+        trace("addFastNative") {
             value += addFastNative(21, 21)
-        } finally {
-            Trace.endSection()
         }
-        try {
-            Trace.beginSection("addCriticalNative")
+        trace("addCriticalNative") {
             value += addCriticalNative(21, 21)
-        } finally {
-            Trace.endSection()
         }
 
         counter += value

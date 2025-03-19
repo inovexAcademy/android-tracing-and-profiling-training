@@ -5,9 +5,10 @@ package com.inovex.training.performance
 
 import android.app.Activity
 import android.os.Bundle
-import android.os.Trace
 import android.util.Log
 import android.widget.TextView
+import androidx.compose.ui.util.trace
+import com.inovex.fib.fibStd
 
 class MacroBenchmarkActivity : Activity() {
     companion object {
@@ -22,14 +23,9 @@ class MacroBenchmarkActivity : Activity() {
 
         textViewCounter = findViewById(R.id.textViewCounter)
 
-        val fib = try {
-            Trace.beginSection("fibStd")
-            fibStd(23 + 10)
-        } finally {
-            Trace.endSection()
-        }
-        textViewCounter.text = "$fib"
+        val fib = fibStd(0)
 
+        textViewCounter.text = "$fib"
 
         Log.d(TAG, "onCreate() finished")
     }
