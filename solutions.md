@@ -7,6 +7,9 @@ This file contains tips and tricks and partial solutions for the exercises.
 
 Example java code for a custom trace event:
 
+    import androidx.compose.ui.util.trace
+    [...]
+
     fun updateCounter() {
         trace("updateCounter") {
             counter += getAccFromNative()
