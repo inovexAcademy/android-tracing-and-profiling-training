@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: Copyright (c) 2025 inovex GmbH
+// SPDX-License: MIT
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
@@ -24,7 +27,7 @@ android {
 
     buildTypes {
         debug {
-	    isMinifyEnabled = false
+            isMinifyEnabled = false
             isDebuggable = true
         }
         create("benchmark") {
@@ -86,6 +89,7 @@ dependencies {
     implementation(libs.androidx.benchmark.macro.junit4)
     implementation(libs.collections.immutable)
     testImplementation(libs.junit)
+    testImplementation(libs.kotlinx.coroutines.test)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))

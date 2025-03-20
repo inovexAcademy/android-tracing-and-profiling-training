@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- SPDX-FileCopyrightText: Copyright (c) 2025 inovex GmbH -->
+<!-- SPDX-License: MIT -->
+
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
@@ -44,11 +47,11 @@
         <activity
             android:name=".CustomTraceEventsActivity"
             android:exported="true"
-            android:theme="@style/Theme.MyApplication"></activity>
+            android:theme="@style/Theme.MyApplication" />
 
         <activity
             android:name=".compose.ComposeActivity"
-            android:exported="false"
+            android:exported="true"
             android:label="@string/title_activity_compose"
             android:theme="@style/Theme.MyApplication" />
     </application>
