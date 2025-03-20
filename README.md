@@ -218,7 +218,7 @@ Bonus question: So they cannot ran out of memory?
 
 Two Tasks:
 
-1) Compare `LinkedHashMap` against `LinkedHashMap` in `fibCaching()`
+1) Compare `LinkedHashMap` against `HashMap` in `fibCaching()`
 2) Compare `Long` vs `Int` and `for` vs `while`.
 
 Next exercise: In the file
