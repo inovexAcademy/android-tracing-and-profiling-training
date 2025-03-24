@@ -290,5 +290,24 @@ Start in file
 
 and add trace events.
 
+
+### Compose performance
+
+See file
+
+   app/src/main/java/com/inovex/training/performance/compose/ComposeActivity.kt
+
+and additional instructions by the trainer.
+
+
+### Kotlin performance
+
+See files in the directory
+
+    app/src/test/java/com/inovex/training/performance/
+
+and the additional instructions be the trainer.
+
+
 [wiki]: https://en.wikipedia.org/wiki/Program_optimization#Bottlenecks
 [knuth]: https://en.wikiquote.org/wiki/Donald_Knuth
