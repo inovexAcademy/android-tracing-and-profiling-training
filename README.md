@@ -3,6 +3,9 @@
 Example and training application for the Tracing and Profiling Training for
 Android from inovex.
 
+If you are interested in this training course, please send an email to
+[academy@inovex.de](mailto:academy@inovex.de).
+
 
 # Running on virtual devices
 
