@@ -213,8 +213,8 @@ New exercises: See file
 
 Run all three benchmarks:
 
-See the the timing informatoin and the `allocs`. Do `fibStd` and `fibFast`
-no memory allocations?
+See the timing information and the `allocs`. Do `fibStd` and `fibFast` no
+memory allocations?
 
 Bonus question: So they cannot ran out of memory?
 
