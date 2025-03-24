@@ -50,7 +50,7 @@ by [Donald Knuth][knuth]
 by random developer on the internet
 
 
-## Perfetto Introduction
+# Perfetto Introduction
 
 See documentation
 
@@ -62,9 +62,9 @@ And see page 29 to 34 on slides:
    https://www.inovex.de/wp-content/uploads/OSS-Talk-Advanced-System-Profiling-Tracing-and-Trace-Analysis-with-Perfetto.pdf
 
 
-## Exercises
+# Exercises
 
-### Custom Trace Events
+## (1) Custom Trace Events
 
 See documentation
 
@@ -92,7 +92,7 @@ Question: What is the green/grey line a top of the timer thread? And why is it
 green-grey-green?
 
 
-### CPU Profiling
+## (2) CPU Profiling
 
 See documentation
 
@@ -118,7 +118,7 @@ stacks again. Do you find the `fibFast()`  call site?
 Bonus: Increase the argument to `fibFast()` to see it in the call stack again.
 
 
-### Java Memory Profiling
+## (3) Java Memory Profiling
 
 See documentation
 
@@ -159,7 +159,7 @@ Question: How to avoid expensive allocations for objects that often used?
 Bonus question: What are the different types of heaps?
 
 
-### Native Memory Profiling
+## (4) Native Memory Profiling
 
 See documentation
 
@@ -177,7 +177,7 @@ See the "Visualization" tab. `calloc` should dominate.
 In tab "Table" switch to "Arrange by callstack". Find `calloc()`.
 
 
-### Micro Benchmark - First Part
+## (5) Micro Benchmark - First Part
 
 See documentation
 
@@ -208,7 +208,7 @@ Go through the functions in the file, read the comments and look at the sample
 results.
 
 
-### Micro Benchmark - Second Part
+## (6) Micro Benchmark - Second Part
 
 See file
 
@@ -237,7 +237,7 @@ Next Bonus Exercise: Come up with a additional idea/code change to speed up
 `fibFast()`
 
 
-### Macro Benchmark
+## (7) Macro Benchmark
 
 Examples based on (and upstream resources):
 
@@ -269,7 +269,7 @@ Change the argument to `fibStd()` to make the startup longer and shorter and
 check the trace again.
 
 
-### JNI performance
+## (8) JNI performance
 
 This exercises is about JNI performance. But it's also a generic example on how
 to use tracing for profiling performance. E.g. for small experiments you don't
@@ -291,7 +291,7 @@ Start in file
 and add trace events.
 
 
-### Compose performance
+## (9) Compose performance
 
 See file
 
@@ -300,7 +300,7 @@ See file
 and additional instructions by the trainer.
 
 
-### Kotlin performance
+## (10) Kotlin performance
 
 See files in the directory
 

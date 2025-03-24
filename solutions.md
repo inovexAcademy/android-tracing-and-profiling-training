@@ -3,7 +3,7 @@
 This file contains tips and tricks and partial solutions for the exercises.
 
 
-## Custom Trace Events
+## (1) Custom Trace Events
 
 Example java code for a custom trace event:
 
@@ -43,7 +43,7 @@ gap exists because the code uses `usleep(100)`. While waiting 100ms the thread
 is put into the sleep state.
 
 
-## CPU Profiling
+## (2) CPU Profiling
 
 Question: Why do you see the "wired" pattern in the callstack of `fibStd()`.
 
@@ -51,7 +51,7 @@ Answer: The function `fibStd()` is _double_ recursive. That's why it has this
 "wired" pattern.
 
 
-## Java Memory Profiling
+## (3) Java Memory Profiling
 
 Question: How to avoid expensive allocations for objects that often used?
 
@@ -64,17 +64,17 @@ Answer: See the documentation at
     https://developer.android.com/studio/profile/capture-heap-dump
 
 
-## Native Memory Profiling
+## (4) Native Memory Profiling
 
 No solution here.
 
 
-## Micro Benchmark - First Part
+## (5) Micro Benchmark - First Part
 
 No solution here.
 
 
-## Micro Benchmark - Second Part
+## (6) Micro Benchmark - Second Part
 
 Result of comparing LinkedHashMap and HashMap in `fibCaching()`
 
@@ -139,7 +139,7 @@ Comparing the DEX code shows that there are difference in the instructions and t
 code. There is one additional instruction.
 
 
-## Macro Benchmark
+## (7) Macro Benchmark
 
 Question: "How much does fibStd() add to the start up latency"
 
@@ -153,7 +153,7 @@ Answer: No, much. On my device it's only adding 83ms to the 1.5 seconds startup
 time.
 
 
-## JNI Performance
+## (8) JNI performance
 
 A example tracing implementation for the different `add*` native functions is
 
@@ -194,3 +194,13 @@ The results should be something like
 * `addCriticalNative` average: 15 us
 
 So `@CriticalNative` is really the fastest.
+
+
+## (9) Compose performance
+
+No solution yet here!
+
+
+## (10) Kotlin performance
+
+No solution here.
