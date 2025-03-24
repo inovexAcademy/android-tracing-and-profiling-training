@@ -7,7 +7,6 @@ import android.app.Activity
 import android.os.Bundle
 import android.util.Log
 import android.widget.TextView
-import androidx.compose.ui.util.trace
 import com.inovex.fib.fibStd
 
 class MacroBenchmarkActivity : Activity() {

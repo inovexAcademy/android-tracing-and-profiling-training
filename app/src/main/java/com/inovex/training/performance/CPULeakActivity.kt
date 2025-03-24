@@ -7,7 +7,6 @@ import android.app.Activity
 import android.os.Bundle
 import android.util.Log
 import android.widget.TextView
-import com.inovex.fib.fibFast
 import com.inovex.fib.fibStd
 import java.util.Timer
 import java.util.TimerTask
@@ -43,7 +42,6 @@ class CPULeakActivity : Activity() {
         counter += acc
 
         runOnUiThread {
-            // Update
             textViewCounter.text = "$counter"
         }
     }
