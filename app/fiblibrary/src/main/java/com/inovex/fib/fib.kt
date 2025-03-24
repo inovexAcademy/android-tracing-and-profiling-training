@@ -35,6 +35,7 @@ fun fibCaching(n: Long): Long {
 
 // A even faster fibonacci implementation
 fun fibFast( n: Long): Long {
+    // Idee: implement a cache for the fast 100 numbres
     var a = 0L
     var b = 1L
     var n2 = n

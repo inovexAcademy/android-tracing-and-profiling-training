@@ -101,7 +101,7 @@ See documentation
 See file
 
     app/src/main/java/com/inovex/training/performance/CPULeakActivity.kt
-    fiblibrary/src/main/java/com/inovex/fib/fib.kt
+    app/fiblibrary/src/main/java/com/inovex/fib/fib.kt
 
 Use "Find CPU Hotspots / Callstack Sample". Start the application as
 "profileable".
@@ -177,7 +177,7 @@ See the "Visualization" tab. `calloc` should dominate.
 In tab "Table" switch to "Arrange by callstack". Find `calloc()`.
 
 
-### Micro Benchmark
+### Micro Benchmark - First Part
 
 See documentation
 
@@ -207,7 +207,10 @@ Execute all benchmarks. You see an output like
 Go through the functions in the file, read the comments and look at the sample
 results.
 
-New exercises: See file
+
+### Micro Benchmark - Second Part
+
+See file
 
     app/MicroBenchmark/src/androidTest/java/com/inovex/microbenchmark/FibBenchmark.kt
 
@@ -226,7 +229,7 @@ Two Tasks:
 
 Next exercise: In the file
 
-    fiblibrary/src/main/java/com/inovex/fib/fib.kt
+    app/fiblibrary/src/main/java/com/inovex/fib/fib.kt
 
 press Ctrl-Shift-A and perform the action `Show Kotlin ByteCode`
 
