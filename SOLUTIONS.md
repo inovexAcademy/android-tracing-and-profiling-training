@@ -204,3 +204,92 @@ No solution yet here!
 ## (10) Kotlin performance
 
 No solution here.
+
+
+## (11) Coroutine scheduling
+
+Question: On which threads are these executed?
+
+Answer:
+* updateCounterBackground() is running on the timer thread
+* heavyFunction() is running on the main/UI thread
+
+And the heavyFunction()s are run sequentially on the main thread. There is no
+parallelism.
+
+Question: When does this happen?
+
+After the heavyFunction()'s are finished.
+
+After switching to the `IO` Dispatcher, the heavyFunction() ran in parallel.
+
+Final code with custom trace tags
+
+    import androidx.compose.ui.util.trace
+    [...]
+    private fun heavyFunction(): Int {
+        trace("heavyFunction") {
+            val startTimeInMs = System.currentTimeMillis()
+            var acc = 0
+            // Compute for 20 milliseconds
+            while (System.currentTimeMillis() < startTimeInMs + 20) {
+                acc += 1
+            }
+            return acc
+        }
+    }
+
+    private fun startHeavyTask(): Deferred<Int> {
+        return scope.async(Dispatchers.IO) { heavyFunction() }
+    }
+
+    fun updateCounterBackground() {
+        trace("updateCounterBackground") {
+            val job1 = startHeavyTask()
+            val job2 = startHeavyTask()
+            val job3 = startHeavyTask()
+
+            scope.launch(Dispatchers.Main) {
+                counter += job1.await() + job2.await() + job3.await()
+                trace("set counter") {
+                    textViewCounter.text = "$counter"
+                }
+            }
+        }
+    }
+
+
+## (12) Coroutine start latency
+
+Final code
+
+    import android.os.Trace
+    [...]
+    private var cookie = 0
+    [...]
+    private fun heavyFunction(cookie: Int): Int {
+        Trace.endAsyncSection("startHeavyTask", cookie)
+	[...]
+    }
+
+    private fun startHeavyTask(): Deferred<Int> {
+        val cookieUsed = cookie
+        cookie += 1
+        Trace.beginAsyncSection("startHeavyTask", cookieUsed)
+        return scope.async {
+            heavyFunction(cookieUsed)
+        }
+    }
+
+For my trace the average duration was 1.14 ms for 75 occurrences on a Pixel2
+phone.
+
+Question: Is this fast or slow?
+
+A 60hz display can draw a new frame every 16ms. So 1.14 ms is already quite
+long.
+
+Question: How does this change when the `Main` and not the `IO` dispatcher is used?
+
+It increases dramatically since the coroutines are executed sequentially on the
+main thread. e.g. I measure 19.9ms on average.

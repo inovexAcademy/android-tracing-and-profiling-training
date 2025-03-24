@@ -309,5 +309,62 @@ See files in the directory
 and the additional instructions be the trainer.
 
 
+## (11) Coroutine scheduling
+
+See file
+
+    app/src/main/java/com/inovex/training/performance/CoroutineTraceActivity.kt
+
+Add a custom traces in function
+
+* updateCounterBackground()
+* heavyFunction()
+
+Question: On which threads are these executed?
+
+Add custom trace to see when
+
+    textViewCounter.text = "$counter"
+
+is executed.
+
+Question: When does this happen?
+
+Now switch the dispatcher for the heavy task to `IO`. Code is
+
+    private fun startHeavyTask(): Deferred<Int> {
+        return scope.async(Dispatchers.IO) { heavyFunction() }
+    }
+
+On which threads is the heavy task executed now?
+
+
+## (12) Coroutine start latency
+
+The goal in this example is to measure the startup latency of kotlin coroutines
+with the AsyncSection API of the Android trace API.
+
+* https://developer.android.com/ndk/reference/group/tracing
+* https://developer.android.com/reference/android/os/Trace
+
+See file
+
+    app/src/main/java/com/inovex/training/performance/CoroutineTraceActivity.kt
+
+Add a `beginAsyncSection()` in function `startHeavyTask()`. The `cookie` can be
+an integer that is incremented on every call.
+
+Add a `endAsyncSection()` in function `heavyFunction()`.
+
+And trace the result with perfetto. You should see an extra track/lane for your
+custom AsyncSection name.
+
+Trace for some seconds and then look at the average value.
+
+Question: Is this fast or slow?
+
+Question: How does this change when the `Main` and not the `IO` dispatcher is used?
+
+
 [wiki]: https://en.wikipedia.org/wiki/Program_optimization#Bottlenecks
 [knuth]: https://en.wikiquote.org/wiki/Donald_Knuth

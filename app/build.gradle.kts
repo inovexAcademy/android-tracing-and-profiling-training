@@ -13,7 +13,7 @@ android {
 
     defaultConfig {
         applicationId = "com.inovex.training.performance"
-        minSdk = 28
+        minSdk = 29  // Android 10 = API Level 29 (needed for async trace API)
         targetSdk = 35
         versionCode = 1
         versionName = "1.0"
