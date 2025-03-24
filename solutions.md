@@ -43,7 +43,7 @@ gap exists because the code uses `usleep(100)`. While waiting 100ms the thread
 is put into the sleep state.
 
 
-### CPU Profiling
+## CPU Profiling
 
 Question: Why do you see the "wired" pattern in the callstack of `fibStd()`.
 
@@ -64,12 +64,17 @@ Answer: See the documentation at
     https://developer.android.com/studio/profile/capture-heap-dump
 
 
-### Native Memory Profiling
+## Native Memory Profiling
 
 No solution here.
 
 
-## Micro Benchmark
+## Micro Benchmark - First Part
+
+No solution here.
+
+
+## Micro Benchmark - Second Part
 
 Result of comparing LinkedHashMap and HashMap in `fibCaching()`
 
@@ -132,7 +137,6 @@ Also no performance gain!
 
 Comparing the DEX code shows that there are difference in the instructions and the length of the
 code. There is one additional instruction.
-
 
 
 ## Macro Benchmark
