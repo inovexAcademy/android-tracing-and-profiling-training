@@ -143,11 +143,13 @@ code. There is one additional instruction.
 
 Question: "How much does fibStd() add to the start up latency"
 
-Example code
+Example code:
 
-        val fib = trace("fibStd") {
-            fibStd(23 + 10)
-        }
+    import androidx.compose.ui.util.trace
+    [...]
+    val fib = trace("fibStd") {
+        fibStd(23 + 10)
+    }
 
 Answer: No, much. On my device it's only adding 83ms to the 1.5 seconds startup
 time.

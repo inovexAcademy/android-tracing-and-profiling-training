@@ -22,7 +22,7 @@ class MacroBenchmarkActivity : Activity() {
 
         textViewCounter = findViewById(R.id.textViewCounter)
 
-        val fib = fibStd(0)
+        val fib = fibStd(23 + 10)
 
         textViewCounter.text = "$fib"
 
