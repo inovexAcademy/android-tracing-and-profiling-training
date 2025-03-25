@@ -7,6 +7,7 @@ import android.app.Activity
 import android.os.Bundle
 import android.util.Log
 import android.widget.TextView
+import androidx.compose.ui.util.trace
 import dalvik.annotation.optimization.CriticalNative
 import dalvik.annotation.optimization.FastNative
 import java.util.Timer
@@ -15,6 +16,10 @@ import java.util.TimerTask
 class JNIPerformanceActivity : Activity() {
     companion object {
         private val TAG = JNIPerformanceActivity::class.simpleName
+
+        @CriticalNative
+        @JvmStatic
+        private external fun addCriticalNative(a: Int, b: Int): Int
     }
 
     private lateinit var timer: Timer
@@ -45,9 +50,16 @@ class JNIPerformanceActivity : Activity() {
     fun updateCounter() {
         var value = 0
 
-        value += add(21, 21)
-        value += addFastNative(21, 21)
-        value += addCriticalNative(21, 21)
+        trace("add") {
+            value += add(21, 21)
+        }
+        trace("addFastNative") {
+            value += addFastNative(21, 21)
+        }
+        trace("addCriticalNative") {
+            value += addCriticalNative(21, 21)
+        }
+
 
         counter += value
         runOnUiThread {
@@ -66,6 +78,4 @@ class JNIPerformanceActivity : Activity() {
     @FastNative
     private external fun addFastNative(a: Int, b: Int): Int
 
-    @CriticalNative
-    private external fun addCriticalNative(a: Int, b: Int): Int
 }
