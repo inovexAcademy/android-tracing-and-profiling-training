@@ -53,6 +53,4 @@ class JavaLeakActivity : Activity() {
         timer.cancel()
         Log.d(TAG, "onDestroy() finished")
     }
-
-    private external fun leakReference(o: Any)
 }
