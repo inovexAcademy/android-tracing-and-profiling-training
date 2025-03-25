@@ -290,6 +290,10 @@ Start in file
 
 and add trace events.
 
+First compare the timining of a single call for every function.
+
+Second compare the avearge time of multiple calls.
+
 
 ## (9) Compose performance
 
