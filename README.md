@@ -370,5 +370,70 @@ Question: Is this fast or slow?
 Question: How does this change when the `Main` and not the `IO` dispatcher is used?
 
 
+## (13) Frame Jank
+
+See file
+
+    app/src/main/java/com/inovex/training/performance/FrameJankActivity.kt
+
+Note: This example uses the
+[Android Choreographer](https://developer.android.com/reference/android/view/Choreographer)
+to sync with the VSYNCS (vertical syncs) of the system instead of a custom
+timer that executes at not aligned intervals.
+
+Look at the source code. Every 10 frames a very long string is inject into the
+UI to provoke janky frame.
+
+Exercise: Start the app and trace with perfetto for 1-2 seconds. Enable
+
+* "Scheduling Details"
+* All GPU data sources
+* "Atrace userspace annotations". Don't filter, select all. And
+  enable "Record events from all Android apps and services"
+
+Try to see the following (may depend on our device and emulator vs physical):
+
+* See the irregular pattern in the lanes/tracks of the application.
+  There is a "pause" every 10 frames.
+* See the custom `doFrame` and `veryLongString` trace tags
+* Observe that the "pause" is after the `veryLongString` trace tag ;-)
+
+Question: What causes the long rendering time?
+
+Now look the track/lane "GPU completion". NOTE: There are two similar named
+tracks/lanes.  One is for the thread and the other for the "GPU completion"
+counter/datasource.
+
+Question: Does the GPU spend more or less time for the janky frame?
+
+Now observe the draw chain that happen each after another on different threads
+
+* See the `Choreographer#doFrame` on the main thread
+* right afterwards see the `DrawFrame` on the render thread
+* right afterwards see the `waiting for GPU completion` on the GPU thread
+  and see the `GPU completion` lane/track
+
+In the track of the RenderThread click on the `binder transaction` trace. See
+
+* the destination pid and other information about the binder call in the bottom
+  half of the window.
+* See the "flow" (=arrow) to another track in another process
+
+Question: Who is this other process and what it's purpose?
+
+Now look at the lane `VSNYC-app`. Pin lane and move the window to the tracing
+app again. The "pin" you can see on the left side of the track/lane
+description.
+
+Question: How does the `VSNYC-app` lane correlate to the main thread?
+
+Bonus exercise: Try out the perfetto [Frame
+timeline](https://perfetto.dev/docs/data-sources/frametimeline) feature if you
+have a Android 12+ device:
+
+See the two new tracks/lanes `Expected Timeline` and `Actual Timeline`. And see
+the different colors. The janky frame should be red. The other frames green.
+
+
 [wiki]: https://en.wikipedia.org/wiki/Program_optimization#Bottlenecks
 [knuth]: https://en.wikiquote.org/wiki/Donald_Knuth

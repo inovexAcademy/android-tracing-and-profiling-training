@@ -293,3 +293,29 @@ Question: How does this change when the `Main` and not the `IO` dispatcher is us
 
 It increases dramatically since the coroutines are executed sequentially on the
 main thread. e.g. I measure 19.9ms on average.
+
+
+## (13) Frame Jank
+
+Question: What causes the long rendering time?
+
+In the trace you can see the trace tag `measure` is a lot longer for the janky
+frame.  But also the `draw` and `Record View#draw()` tags are longer.
+
+Question: Does the GPU spend more or less time for the janky frame?
+
+In my traces on the Pixel2 I can not see any differences. There is a variance
+for the GPU completion jobs, but this seems not to depend on the janky frame.
+
+
+Question: Who is this other process and what it's purpose?
+
+It's surfaceflinger. The app process is handing over the frame (as a job on the
+GPU) to the surfaceflinger to composite the final screen.
+
+Question: How does the `VSNYC-app` lane correlate to the main thread?
+
+The trace tag `Choreographer#doFrame` correlates with the `VSYNC-app` lane.
+It's the time when the app should start rendering the next frame.
+
+More info is here https://source.android.com/docs/core/graphics/implement-vsync

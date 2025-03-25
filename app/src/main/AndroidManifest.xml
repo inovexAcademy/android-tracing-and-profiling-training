@@ -36,6 +36,9 @@
             android:name=".CPULeakActivity"
             android:exported="true" />
         <activity
+            android:name=".FrameJankActivity"
+            android:exported="true" />
+        <activity
             android:name=".JavaLeakActivity"
             android:exported="true" />
         <activity
